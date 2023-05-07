@@ -18,18 +18,21 @@ func main() {
 	checkError(err)
 	N := int32(NTemp)
 
+	namesRegexpObject, _ := regexp.Compile("([a-z]+)")
+	mailRegexpObject, _ := regexp.Compile("([a-z]+@gmail.com)")
+
 	var names []string
 	for NItr := 0; NItr < int(N); NItr++ {
 		firstMultipleInput := strings.Split(strings.TrimSpace(readLine(reader)), " ")
 
 		firstName := firstMultipleInput[0]
-		firstNameMatch, _ := regexp.MatchString("([a-z]+)", firstName)
+		firstNameMatch := namesRegexpObject.MatchString(firstName)
 		if !firstNameMatch {
 			continue
 		}
 
 		emailID := firstMultipleInput[1]
-		emailMatch, _ := regexp.MatchString("([a-z]+@gmail.com)", emailID)
+		emailMatch := mailRegexpObject.MatchString(emailID)
 		if emailMatch {
 			names = append(names, firstName)
 		}
